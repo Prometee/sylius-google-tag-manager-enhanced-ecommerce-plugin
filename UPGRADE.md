@@ -1,7 +1,13 @@
 # Upgrade
 
-Upgrade 4.0.0 -> 4.1.0
+Upgrade 3.0.0 -> 4.0.0
 ----------------------
+
+Sylius 2.0 support has been introduced. This upgrade drops support for Sylius 1.x.
+
+Several config files have been renamed (`.yml` to `yaml`).
+
+The only template has been removed, as it was not used anywhere anymore.
 
 The trait `StefanDoorn\SyliusGtmEnhancedEcommercePlugin\TagManager\CreateProductTrait` has been removed.
 You can now rely on a factory : `StefanDoorn\SyliusGtmEnhancedEcommercePlugin\Factory\GtmItemFactory` to customize your GTM item.
@@ -19,15 +25,6 @@ Purchase events are now tracked by the `StefanDoorn\SyliusGtmEnhancedEcommercePl
 `StefanDoorn\SyliusGtmEnhancedEcommercePlugin\Helper\ProductVariantPriceHelperInterface` has been removed.
 `sylius.google_tag_manager.enhanced_ecommerce_tracking.helper.product_variant_price` has been removed.
 `sylius.google_tag_manager.enhanced_ecommerce_tracking.checkout_step.abstract` has been removed.
-
-Upgrade 3.0.0 -> 4.0.0
-----------------------
-
-Sylius 2.0 support has been introduced. This upgrade drops support for Sylius 1.x.
-
-Several config files have been renamed (`.yml` to `yaml`).
-
-The only template has been removed, as it was not used anywhere anymore.
 
 Upgrade 2.0.0 -> 3.0.0
 ----------------------
