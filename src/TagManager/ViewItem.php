@@ -15,9 +15,9 @@ final class ViewItem implements ViewItemInterface
 {
     public function __construct(
         private GoogleTagManagerInterface $googleTagManager,
-        private GtmProviderInterface $viewItemProvider,
         private ChannelContextInterface $channelContext,
         private CurrencyContextInterface $currencyContext,
+        private GtmProviderInterface $viewItemProvider,
     ) {
     }
 
