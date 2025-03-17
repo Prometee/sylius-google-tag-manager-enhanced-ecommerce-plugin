@@ -1,10 +1,8 @@
-imports:
-  - { resource: shared/checkout.yaml }
-
 services:
 
   sylius.google_tag_manager.enhanced_ecommerce_tracking.view_cart:
-    parent: sylius.google_tag_manager.enhanced_ecommerce_tracking.checkout_step.abstract
-    arguments: [1]
+    parent: sylius.google_tag_manager.enhanced_ecommerce_tracking.listener.checkout_step.abstract
+    arguments:
+      - !php/const StefanDoorn\SyliusGtmEnhancedEcommercePlugin\TagManager\CheckoutStepInterface::STEP_CART
     tags:
       - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }

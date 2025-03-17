@@ -8,5 +8,5 @@ use Sylius\Component\Core\Model\TaxonInterface;
 
 interface ViewItemListInterface
 {
-    public function add(TaxonInterface $taxon, ?string $listId = null): void;
+    public function add(TaxonInterface $taxon): void;
 }

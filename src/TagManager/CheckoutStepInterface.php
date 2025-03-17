@@ -16,7 +16,7 @@ interface CheckoutStepInterface
 
     public const STEP_PAYMENT = 4;
 
-    public const STEP_CONFIRM = 5;
+    public const STEP_PURCHASE = 5;
 
     public function addStep(OrderInterface $order, int $step): void;
 }

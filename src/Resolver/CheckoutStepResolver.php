@@ -20,13 +20,17 @@ final class CheckoutStepResolver implements CheckoutStepResolverInterface
 
     private function updateAction(Request $request): ?int
     {
+        if ($request->getMethod() === 'GET') {
+            return null;
+        }
+
         $route = $request->get('_route');
 
         return match ($route) {
             'sylius_shop_checkout_address' => CheckoutStepInterface::STEP_ADDRESS,
             'sylius_shop_checkout_select_shipping' => CheckoutStepInterface::STEP_SHIPPING,
             'sylius_shop_checkout_select_payment' => CheckoutStepInterface::STEP_PAYMENT,
-            'sylius_shop_checkout_complete' => CheckoutStepInterface::STEP_CONFIRM,
+            'sylius_shop_checkout_complete' => CheckoutStepInterface::STEP_PURCHASE,
             default => null,
         };
     }

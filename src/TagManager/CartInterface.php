@@ -8,18 +8,7 @@ use Sylius\Component\Core\Model\OrderItemInterface;
 
 interface CartInterface
 {
-    /**
-     * @param array<string, mixed> $productData
-     */
-    public function add(array $productData): void;
+    public function add(OrderItemInterface $orderItem): void;
 
-    /**
-     * @param array<string, mixed> $productData
-     */
-    public function remove(array $productData): void;
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function getOrderItem(OrderItemInterface $orderItem): array;
+    public function remove(OrderItemInterface $orderItem): void;
 }
