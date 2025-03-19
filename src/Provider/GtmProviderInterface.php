@@ -14,7 +14,7 @@ interface GtmProviderInterface
     /**
      * @param array<string, mixed> $context
      *
-     * @return array<string, mixed>|null
+     * @return mixed[]|null
      */
     public function getEcommerce(array $context): ?array;
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace StefanDoorn\SyliusGtmEnhancedEcommercePlugin\Service;
 
 use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Service\ResetInterface;
 use Xynnn\GoogleTagManagerBundle\Service\GoogleTagManagerInterface;
 
@@ -16,7 +17,7 @@ final class CachedGoogleTagManager implements GoogleTagManagerInterface, ResetIn
 
     public function __construct(
         private GoogleTagManagerInterface $googleTagManager,
-        protected AdapterInterface $cache,
+        protected AdapterInterface&CacheInterface $cache,
     ) {
         $cacheItem = $this->cache->getItem(self::GTM_DATA_LAYER);
         /** @var array<string, array<string, mixed>> $cachedPushes */

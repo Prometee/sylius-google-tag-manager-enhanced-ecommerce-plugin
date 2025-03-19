@@ -30,7 +30,7 @@ class ViewItemProvider extends ViewItemListProvider
             return null;
         }
 
-        $ecommerce['value'] = $ecommerce['items'][0]['price'];
+        $ecommerce['value'] = $ecommerce['items'][0]['price'] ?? 0.0;
 
         return $ecommerce;
     }

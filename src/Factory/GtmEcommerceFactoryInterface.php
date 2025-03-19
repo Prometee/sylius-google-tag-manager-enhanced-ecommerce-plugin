@@ -11,17 +11,17 @@ use Sylius\Component\Core\Model\ProductInterface;
 interface GtmEcommerceFactoryInterface
 {
     /**
-     * @return array<string, mixed>|null
+     * @return mixed[]|null
      */
     public function createNewFromOrder(OrderInterface $order): ?array;
 
     /**
-     * @return array<string, mixed>|null
+     * @return mixed[]|null
      */
     public function createNewFromSingleOrderItem(OrderItemInterface $orderItem, OrderInterface $order): ?array;
 
     /**
-     * @return array<string, mixed>|null
+     * @return mixed[]|null
      */
     public function createNewFromProduct(ProductInterface $product): ?array;
 }

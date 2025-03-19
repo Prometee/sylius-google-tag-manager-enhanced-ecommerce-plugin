@@ -12,17 +12,17 @@ use Sylius\Component\Core\Model\ProductVariantInterface;
 interface GtmItemFactoryInterface
 {
     /**
-     * @return array<string, mixed>
+     * @return mixed[]
      */
     public function createNewFromProduct(ProductInterface $product): array;
 
     /**
-     * @return array<string, mixed>
+     * @return mixed[]
      */
     public function createNewFromProductVariant(ProductVariantInterface $productVariant): array;
 
     /**
-     * @return array<string, mixed>
+     * @return mixed[]
      */
     public function createNewFromOrderItem(OrderItemInterface $orderItem, OrderInterface $order): array;
 }

@@ -53,7 +53,7 @@ class ViewItemListProvider implements GtmProviderInterface
         $index = 0;
         $ecommerce = [
             'currency' => $currencyCode,
-            'items' => array_values(array_filter(array_map(function (ProductInterface $product) use ($taxon, $channel, &$index): ?array {
+            'items' => array_values(array_filter(array_map(function (ProductInterface $product) use ($channel, &$index): ?array {
                 /** @var ProductVariantInterface|null $productVariant */
                 $productVariant = $this->productVariantResolver->getVariant($product);
                 if (null === $productVariant) {

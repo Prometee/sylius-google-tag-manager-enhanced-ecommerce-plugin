@@ -7,6 +7,7 @@ namespace StefanDoorn\SyliusGtmEnhancedEcommercePlugin\EventListener;
 use StefanDoorn\SyliusGtmEnhancedEcommercePlugin\TagManager\ViewItemListInterface;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Bundle\ShopBundle\Twig\Component\Product\BreadcrumbComponent;
+use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Grid\View\GridViewInterface;
 
 final class ViewItemListListener
@@ -25,7 +26,9 @@ final class ViewItemListListener
 
         // Ensure PagerFanta or any other paginator will be handled correctly
         $products = [];
-        foreach ($gridView->getData() as $product) {
+        /** @var iterable<ProductInterface> $data */
+        $data = $gridView->getData();
+        foreach ($data as $product) {
             $products[] = $product;
         }
 
