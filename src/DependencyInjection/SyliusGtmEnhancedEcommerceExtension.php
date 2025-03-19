@@ -7,9 +7,10 @@ namespace StefanDoorn\SyliusGtmEnhancedEcommercePlugin\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-final class SyliusGtmEnhancedEcommerceExtension extends Extension
+final class SyliusGtmEnhancedEcommerceExtension extends Extension implements PrependExtensionInterface
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -29,5 +30,23 @@ final class SyliusGtmEnhancedEcommerceExtension extends Extension
                 $loader->load(\sprintf('features/%s.yaml', $feature));
             }
         }
+    }
+
+    public function prepend(ContainerBuilder $container): void
+    {
+        $this->prependSymfonyConfig($container);
+    }
+
+    private function prependSymfonyConfig(ContainerBuilder $container): void
+    {
+        $container->prependExtensionConfig('framework', [
+            'cache' => [
+                'pools' => [
+                    'cache.sylius_gtm_enhanced_ecommerce' => [
+                        'adapter' => 'cache.app',
+                    ],
+                ],
+            ],
+        ]);
     }
 }
