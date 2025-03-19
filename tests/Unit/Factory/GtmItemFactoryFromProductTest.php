@@ -12,7 +12,7 @@ use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 
-final class GtmItemFactoryTest extends TestCase
+final class GtmItemFactoryFromProductTest extends TestCase
 {
     private MockObject&ProductIdentifierHelperInterface $productIdentifierHelper;
 

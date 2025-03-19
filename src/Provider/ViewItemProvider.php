@@ -25,6 +25,13 @@ class ViewItemProvider extends ViewItemListProvider
 
         $context[ContextInterface::CONTEXT_PRODUCTS] = [$product];
 
-        return parent::getEcommerce($context);
+        $ecommerce = parent::getEcommerce($context);
+        if (null === $ecommerce) {
+            return null;
+        }
+
+        $ecommerce['value'] = $ecommerce['items'][0]['price'];
+
+        return $ecommerce;
     }
 }

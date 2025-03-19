@@ -4,5 +4,6 @@ services:
     class: StefanDoorn\SyliusGtmEnhancedEcommercePlugin\EventListener\ViewItemListListener
     arguments:
       - "@sylius.google_tag_manager.enhanced_ecommerce_tracking.tag_manager.view_item_list"
+      - "@sylius_shop.twig.component.product.breadcrumb"
     tags:
-      - { name: kernel.event_listener, event: sylius.taxon.show }
+      - { name: kernel.event_listener, event: sylius.product.index }

@@ -66,11 +66,6 @@ class ViewItemListProvider implements GtmProviderInterface
                 $item['affiliation'] = $channel->getName();
                 $item['index'] = $index++;
 
-                if (null !== $taxon) {
-                    $item['item_list_id'] = $taxon->getCode();
-                    $item['item_list_name'] = $taxon->getName();
-                }
-
                 return $item;
             }, $products))),
         ];

@@ -58,22 +58,18 @@ final class GtmItemFactory implements GtmItemFactoryInterface
         return $data;
     }
 
-    public function createNewFromOrderItem(OrderItemInterface $orderItem): array
+    public function createNewFromOrderItem(OrderItemInterface $orderItem, OrderInterface $order): array
     {
         $productVariant = $orderItem->getVariant();
         Assert::notNull($productVariant, 'Order item must have a variant');
 
-        /** @var OrderInterface|null $order */
-        $order = $orderItem->getOrder();
-        Assert::notNull($order, 'Order item must have an order');
-
         $index = $order->getItems()->indexOf($orderItem);
-        Assert::notFalse($index, 'Unable to find the index of the order item');
+        $index = $index === false ? 0 : $index;
 
         $data = $this->createNewFromProductVariant($productVariant);
 
         $data['index'] = $index;
-        $data['price'] = $orderItem->getUnitPrice() / 100;
+        $data['price'] = $orderItem->getFullDiscountedUnitPrice() / 100;
         $data['quantity'] = $orderItem->getQuantity();
 
         if (null !== $order->getChannel() && null !== $order->getChannel()->getName()) {

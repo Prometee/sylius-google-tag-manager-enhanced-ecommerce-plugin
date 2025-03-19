@@ -18,7 +18,7 @@ interface GtmEcommerceFactoryInterface
     /**
      * @return array<string, mixed>|null
      */
-    public function createNewFromSingleOrderItem(OrderItemInterface $orderItem): ?array;
+    public function createNewFromSingleOrderItem(OrderItemInterface $orderItem, OrderInterface $order): ?array;
 
     /**
      * @return array<string, mixed>|null

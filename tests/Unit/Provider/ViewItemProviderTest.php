@@ -76,6 +76,7 @@ final class ViewItemProviderTest extends TestCase
 
         $expected = [
             'currency' => 'EUR',
+            'value' => 15,
             'items' => [
                 [
                     'id' => 'product123',

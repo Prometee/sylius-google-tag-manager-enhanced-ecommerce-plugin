@@ -6,20 +6,29 @@ namespace StefanDoorn\SyliusGtmEnhancedEcommercePlugin\EventListener;
 
 use StefanDoorn\SyliusGtmEnhancedEcommercePlugin\TagManager\ViewItemListInterface;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
-use Sylius\Component\Core\Model\TaxonInterface;
+use Sylius\Bundle\ShopBundle\Twig\Component\Product\BreadcrumbComponent;
+use Sylius\Component\Grid\View\GridViewInterface;
 
 final class ViewItemListListener
 {
     public function __construct(
         private ViewItemListInterface $viewItemList,
+        private BreadcrumbComponent $breadcrumbComponent,
     ) {
     }
 
     public function __invoke(ResourceControllerEvent $event): void
     {
-        /** @var TaxonInterface $taxon */
-        $taxon = $event->getSubject();
+        $taxon = $this->breadcrumbComponent->taxon();
+        /** @var GridViewInterface $gridView */
+        $gridView = $event->getSubject();
 
-        $this->viewItemList->add($taxon);
+        // Ensure PagerFanta or any other paginator will be handled correctly
+        $products = [];
+        foreach ($gridView->getData() as $product) {
+            $products[] = $product;
+        }
+
+        $this->viewItemList->add($taxon, $products);
     }
 }

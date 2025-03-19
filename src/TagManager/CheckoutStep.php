@@ -20,14 +20,14 @@ final class CheckoutStep implements CheckoutStepInterface
     ) {
     }
 
-    public function addStep(OrderInterface $order, int $step): void
+    public function addStep(OrderInterface $order, string $state): void
     {
         // https://developers.google.com/analytics/devguides/collection/ga4/ecommerce?client_type=gtm#initiate_the_checkout_process
         $this->googleTagManager->addPush([
             'ecommerce' => null,
         ]);
 
-        $provider = $this->locator->get((string) $step);
+        $provider = $this->locator->get($state);
 
         $context = [
             ContextInterface::CONTEXT_ORDER => $order,

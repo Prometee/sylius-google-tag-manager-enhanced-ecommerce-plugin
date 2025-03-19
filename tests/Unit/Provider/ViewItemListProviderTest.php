@@ -131,8 +131,6 @@ final class ViewItemListProviderTest extends TestCase
                     'price' => 25,
                     'affiliation' => 'Web Store',
                     'index' => 0,
-                    'item_list_id' => 'category-code',
-                    'item_list_name' => 'Category Name',
                 ],
             ],
         ];

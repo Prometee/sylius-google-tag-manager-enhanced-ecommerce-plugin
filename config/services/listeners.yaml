@@ -4,14 +4,8 @@ services:
         class: StefanDoorn\SyliusGtmEnhancedEcommercePlugin\EventListener\CartListener
         abstract: true
         arguments:
+            - "@sylius.context.cart"
             - '@sylius.google_tag_manager.enhanced_ecommerce_tracking.tag_manager.cart'
-
-    sylius.google_tag_manager.enhanced_ecommerce_tracking.cart.listener.controller:
-        alias: sylius.google_tag_manager.enhanced_ecommerce_tracking.listener.cart.abstract
-        deprecated:
-            package: sylius/google-tag-manager-enhanced-ecommerce-tracking-plugin
-            version: 4.0.0
-            message: "The service \"%service_id%\" is deprecated and will be removed in the next major release. Use \"%alias_id%\" instead."
 
     sylius.google_tag_manager.enhanced_ecommerce_tracking.listener.checkout_step.abstract:
         class: StefanDoorn\SyliusGtmEnhancedEcommercePlugin\EventListener\CheckoutStepListener
@@ -19,11 +13,3 @@ services:
         arguments:
             - "@sylius.google_tag_manager.enhanced_ecommerce_tracking.tag_manager.checkout_step"
             - "@sylius.context.cart"
-            - "@sylius.google_tag_manager.enhanced_ecommerce_tracking.resolver.checkout_step"
-
-    sylius.google_tag_manager.enhanced_ecommerce_tracking.checkout_step.abstract:
-        alias: sylius.google_tag_manager.enhanced_ecommerce_tracking.listener.checkout_step.abstract
-        deprecated:
-            package: sylius/google-tag-manager-enhanced-ecommerce-tracking-plugin
-            version: 4.0.0
-            message: "The service \"%service_id%\" is deprecated and will be removed in the next major release. Use \"%alias_id%\" instead."

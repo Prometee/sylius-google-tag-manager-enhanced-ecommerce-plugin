@@ -6,6 +6,7 @@ namespace StefanDoorn\SyliusGtmEnhancedEcommercePlugin\Provider;
 
 use StefanDoorn\SyliusGtmEnhancedEcommercePlugin\Factory\GtmEcommerceFactoryInterface;
 use StefanDoorn\SyliusGtmEnhancedEcommercePlugin\TagManager\ContextInterface;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Webmozart\Assert\Assert;
 
@@ -24,11 +25,16 @@ class AddToCartProvider implements GtmProviderInterface
     public function getEcommerce(array $context): ?array
     {
         Assert::keyExists($context, ContextInterface::CONTEXT_ORDER_ITEM);
+        Assert::keyExists($context, ContextInterface::CONTEXT_ORDER);
 
         /** @var OrderItemInterface|null $orderItem */
         $orderItem = $context[ContextInterface::CONTEXT_ORDER_ITEM] ?? null;
         Assert::isInstanceOf($orderItem, OrderItemInterface::class);
 
-        return $this->gtmEcommerceFactory->createNewFromSingleOrderItem($orderItem);
+        /** @var OrderInterface|null $order */
+        $order = $context[ContextInterface::CONTEXT_ORDER] ?? null;
+        Assert::isInstanceOf($order, OrderInterface::class);
+
+        return $this->gtmEcommerceFactory->createNewFromSingleOrderItem($orderItem, $order);
     }
 }

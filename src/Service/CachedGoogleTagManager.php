@@ -40,6 +40,7 @@ final class CachedGoogleTagManager implements GoogleTagManagerInterface, ResetIn
     public function getPush(): array
     {
         $this->pushCalled = true;
+
         return $this->googleTagManager->getPush();
     }
 

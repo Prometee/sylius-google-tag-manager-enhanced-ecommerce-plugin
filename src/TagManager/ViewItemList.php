@@ -7,39 +7,24 @@ namespace StefanDoorn\SyliusGtmEnhancedEcommercePlugin\TagManager;
 use StefanDoorn\SyliusGtmEnhancedEcommercePlugin\Provider\GtmProviderInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
-use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Currency\Context\CurrencyContextInterface;
-use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Xynnn\GoogleTagManagerBundle\Service\GoogleTagManagerInterface;
 
 final class ViewItemList implements ViewItemListInterface
 {
-    /**
-     * @param ProductRepositoryInterface<ProductInterface> $productRepository
-     */
     public function __construct(
         private GoogleTagManagerInterface $googleTagManager,
-        private ProductRepositoryInterface $productRepository,
         private ChannelContextInterface $channelContext,
-        private LocaleContextInterface $localeContext,
         private CurrencyContextInterface $currencyContext,
         private GtmProviderInterface $viewItemListProvider,
     ) {
     }
 
-    public function add(TaxonInterface $taxon): void
+    public function add(TaxonInterface $taxon, array $products): void
     {
         /** @var ChannelInterface $channel */
         $channel = $this->channelContext->getChannel();
-
-        /** @var ProductInterface[] $products */
-        $products = $this->productRepository->createShopListQueryBuilder(
-            $channel,
-            $taxon,
-            $this->localeContext->getLocaleCode(),
-        )->getQuery()->getResult();
 
         if (0 === count($products)) {
             return;

@@ -7,7 +7,6 @@ namespace StefanDoorn\SyliusGtmEnhancedEcommercePlugin\Factory;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductInterface;
-use Webmozart\Assert\Assert;
 
 final class GtmEcommerceFactory implements GtmEcommerceFactoryInterface
 {
@@ -20,7 +19,7 @@ final class GtmEcommerceFactory implements GtmEcommerceFactoryInterface
     {
         $ecommerce = [
             'currency' => $order->getCurrencyCode(),
-            'value' => $order->getTotal() / 100,
+            'value' => $order->getItemsSubtotal() / 100,
             'tax' => $order->getTaxTotal() / 100,
             'shipping' => $order->getShippingTotal() / 100,
             'items' => $this->getProducts($order),
@@ -33,18 +32,14 @@ final class GtmEcommerceFactory implements GtmEcommerceFactoryInterface
         return $ecommerce;
     }
 
-    public function createNewFromSingleOrderItem(OrderItemInterface $orderItem): ?array
+    public function createNewFromSingleOrderItem(OrderItemInterface $orderItem, OrderInterface $order): ?array
     {
-        /** @var OrderInterface|null $order */
-        $order = $orderItem->getOrder();
-        Assert::notNull($order, 'OrderItem should have an Order');
-
         $ecommerce = [
             'currency' => $order->getCurrencyCode(),
             'value' => $orderItem->getTotal() / 100,
             'tax' => $orderItem->getTaxTotal() / 100,
             'items' => [
-                $this->gtmItemFactory->createNewFromOrderItem($orderItem),
+                $this->gtmItemFactory->createNewFromOrderItem($orderItem, $order),
             ],
         ];
 
@@ -72,7 +67,7 @@ final class GtmEcommerceFactory implements GtmEcommerceFactoryInterface
         $products = [];
 
         foreach ($order->getItems() as $orderItem) {
-            $products[] = $this->gtmItemFactory->createNewFromOrderItem($orderItem);
+            $products[] = $this->gtmItemFactory->createNewFromOrderItem($orderItem, $order);
         }
 
         return $products;

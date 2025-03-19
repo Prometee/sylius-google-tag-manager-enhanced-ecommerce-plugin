@@ -25,6 +25,7 @@ Purchase events are now tracked by the `StefanDoorn\SyliusGtmEnhancedEcommercePl
 `StefanDoorn\SyliusGtmEnhancedEcommercePlugin\Helper\ProductVariantPriceHelperInterface` has been removed.
 `sylius.google_tag_manager.enhanced_ecommerce_tracking.helper.product_variant_price` has been removed.
 `sylius.google_tag_manager.enhanced_ecommerce_tracking.checkout_step.abstract` has been removed.
+`sylius.google_tag_manager.enhanced_ecommerce_tracking.cart.listener.controller` has been removed.
 
 Upgrade 2.0.0 -> 3.0.0
 ----------------------

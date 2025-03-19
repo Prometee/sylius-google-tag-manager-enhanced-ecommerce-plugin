@@ -3,6 +3,7 @@ services:
   sylius.google_tag_manager.enhanced_ecommerce_tracking.purchase:
     parent: sylius.google_tag_manager.enhanced_ecommerce_tracking.listener.checkout_step.abstract
     arguments:
-      - !php/const StefanDoorn\SyliusGtmEnhancedEcommercePlugin\TagManager\CheckoutStepInterface::STEP_PURCHASE
+      - !php/const Sylius\Component\Core\OrderCheckoutStates::STATE_COMPLETED
     tags:
-      - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+      - name: kernel.event_listener
+        event: sylius.order.post_completed

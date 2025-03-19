@@ -38,16 +38,16 @@ final class GtmEcommerceFactoryTest extends TestCase
             ->willReturn('USD');
 
         $order->expects($this->once())
-            ->method('getTotal')
-            ->willReturn(10000); // 100.00 in cents
+            ->method('getItemsSubtotal')
+            ->willReturn(8000);
 
         $order->expects($this->once())
             ->method('getTaxTotal')
-            ->willReturn(2000); // 20.00 in cents
+            ->willReturn(2000);
 
         $order->expects($this->once())
             ->method('getShippingTotal')
-            ->willReturn(500); // 5.00 in cents
+            ->willReturn(500);
 
         $order->expects($this->atLeastOnce())
             ->method('getItems')
@@ -76,7 +76,7 @@ final class GtmEcommerceFactoryTest extends TestCase
 
         $expected = [
             'currency' => 'USD',
-            'value' => 100.00,
+            'value' => 80.00,
             'tax' => 20.00,
             'shipping' => 5.00,
             'coupon' => 'DISCOUNT10',
@@ -99,7 +99,7 @@ final class GtmEcommerceFactoryTest extends TestCase
         $orderItem = $this->createMock(OrderItemInterface::class);
 
         $order->expects($this->once())->method('getCurrencyCode')->willReturn('EUR');
-        $order->expects($this->once())->method('getTotal')->willReturn(5000);
+        $order->expects($this->once())->method('getItemsSubtotal')->willReturn(4200);
         $order->expects($this->once())->method('getTaxTotal')->willReturn(800);
         $order->expects($this->once())->method('getShippingTotal')->willReturn(300);
         $order->expects($this->atLeastOnce())->method('getItems')->willReturn(new ArrayCollection([$orderItem]));
@@ -113,7 +113,7 @@ final class GtmEcommerceFactoryTest extends TestCase
 
         $expected = [
             'currency' => 'EUR',
-            'value' => 50.00,
+            'value' => 42.00,
             'tax' => 8.00,
             'shipping' => 3.00,
             'items' => [['item_id' => 'product-456', 'price' => 42.00]],
@@ -128,7 +128,6 @@ final class GtmEcommerceFactoryTest extends TestCase
         $order = $this->createMock(OrderInterface::class);
         $coupon = $this->createMock(PromotionCouponInterface::class);
 
-        $orderItem->expects($this->atLeastOnce())->method('getOrder')->willReturn($order);
         $orderItem->expects($this->once())->method('getTotal')->willReturn(3000);
         $orderItem->expects($this->once())->method('getTaxTotal')->willReturn(500);
 
@@ -141,7 +140,7 @@ final class GtmEcommerceFactoryTest extends TestCase
             ->with($orderItem)
             ->willReturn(['item_id' => 'product-789', 'item_name' => 'Special Item']);
 
-        $result = $this->factory->createNewFromSingleOrderItem($orderItem);
+        $result = $this->factory->createNewFromSingleOrderItem($orderItem, $order);
 
         $expected = [
             'currency' => 'GBP',

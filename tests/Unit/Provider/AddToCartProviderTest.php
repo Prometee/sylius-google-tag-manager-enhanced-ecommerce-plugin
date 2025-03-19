@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use StefanDoorn\SyliusGtmEnhancedEcommercePlugin\Factory\GtmEcommerceFactoryInterface;
 use StefanDoorn\SyliusGtmEnhancedEcommercePlugin\Provider\AddToCartProvider;
 use StefanDoorn\SyliusGtmEnhancedEcommercePlugin\TagManager\ContextInterface;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 
 final class AddToCartProviderTest extends TestCase
@@ -31,6 +32,7 @@ final class AddToCartProviderTest extends TestCase
 
     public function testGetEcommerceReturnsDataFromFactory(): void
     {
+        $order = $this->createMock(OrderInterface::class);
         $orderItem = $this->createMock(OrderItemInterface::class);
         $expected = [
             'currency' => 'USD',
@@ -48,6 +50,7 @@ final class AddToCartProviderTest extends TestCase
 
         $result = $this->provider->getEcommerce([
             ContextInterface::CONTEXT_ORDER_ITEM => $orderItem,
+            ContextInterface::CONTEXT_ORDER => $order,
         ]);
 
         self::assertSame($expected, $result);
@@ -71,6 +74,7 @@ final class AddToCartProviderTest extends TestCase
 
     public function testGetEcommerceReturnsNullWhenFactoryReturnsNull(): void
     {
+        $order = $this->createMock(OrderInterface::class);
         $orderItem = $this->createMock(OrderItemInterface::class);
 
         $this->gtmEcommerceFactory->expects($this->once())
@@ -80,6 +84,7 @@ final class AddToCartProviderTest extends TestCase
 
         $result = $this->provider->getEcommerce([
             ContextInterface::CONTEXT_ORDER_ITEM => $orderItem,
+            ContextInterface::CONTEXT_ORDER => $order,
         ]);
 
         self::assertNull($result);
