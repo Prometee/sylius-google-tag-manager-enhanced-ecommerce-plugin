@@ -79,8 +79,7 @@
         "behat": "bin/behat --colors --strict -vvv --no-interaction",
         "behat-rerun": "bin/behat --colors --strict -vvv --no-interaction --rerun",
         "test": [
-            "@phpunit",
-            "@behat || @behat-rerun"
+            "@phpunit"
         ]
     },
     "extra": {

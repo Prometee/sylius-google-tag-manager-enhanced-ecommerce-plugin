@@ -157,6 +157,10 @@ jobs:
                 run: composer test
 
             -
+                name: Run Behat
+                run: composer behat || composer behat-rerun
+
+            -
                 name: Upload Behat logs
                 uses: actions/upload-artifact@v4
                 if: failure()
