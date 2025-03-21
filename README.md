@@ -47,13 +47,13 @@ References + examples of how to set up your GTM container: https://developers.go
 Supported events:
 
 Product catalogue actions:
-* `view_item` trigger on the event `sylius.product.show`
-* `view_item_list` trigger on the event `sylius.product.index`
+* `view_item` trigger on the event `sylius.product.show`.
+* `view_item_list` trigger on the event `sylius.product.index`.
 
 Cart actions:
-* `add_to_cart` trigger on the event `Sylius\Component\Order\SyliusCartEvents::CART_ITEM_ADD`
-* `remove_from_cart` trigger on the event `Sylius\Component\Order\SyliusCartEvents::CART_ITEM_REMOVE`
-* `view_cart` trigger on the event `Sylius\Component\Order\SyliusCartEvents::CART_SUMMARY`
+* `add_to_cart` trigger on the event `Sylius\Component\Order\SyliusCartEvents::CART_ITEM_ADD`.
+* `remove_from_cart` trigger on the event `Sylius\Component\Order\SyliusCartEvents::CART_ITEM_REMOVE`.
+* `view_cart` trigger on the event `Sylius\Component\Order\SyliusCartEvents::CART_SUMMARY`.
 
 Checkout steps:
 
@@ -61,7 +61,7 @@ Checkout steps:
 > After the event is triggered, a redirection happens, making it impossible to track the event in the same request.
 > This plugin is saving the pushed GTM event and display it on the next available page.
 
-* `begin_checkout` trigger on the event `sylius.order.post_address`
-* `add_shipping_info` trigger on the event `sylius.order.post_select_shipping`
-* `add_payment_info` trigger on the event `sylius.order.post_payment`
-* `purchase` trigger on the event `sylius.order.post_complete`
+* `begin_checkout` trigger on the event `sylius.order.post_address`.
+* `add_shipping_info` trigger on the event `sylius.order.post_select_shipping`.
+* `add_payment_info` trigger on the event `sylius.order.post_payment`.
+* `purchase` trigger just before the `sylius.controller.order::thankYouAction` is called.
