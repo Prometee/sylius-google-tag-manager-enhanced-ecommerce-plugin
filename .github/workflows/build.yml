@@ -165,7 +165,7 @@ jobs:
                 uses: actions/upload-artifact@v4
                 if: failure()
                 with:
-                    name: Behat logs
+                    name: ${{ runner.os }}-php-${{ matrix.php }}-symfony-${{ matrix.symfony }}-sylius-${{ matrix.sylius }}-${{ strategy.job-index }}
                     path: |
                         etc/build/
                         test/Application/var/log/
