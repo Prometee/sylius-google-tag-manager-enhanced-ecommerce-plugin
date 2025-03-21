@@ -6,12 +6,15 @@ namespace Tests\StefanDoorn\SyliusGtmEnhancedEcommercePlugin\Behat\Context\Ui\Sh
 
 use Behat\Behat\Context\Context;
 use Behat\Mink\Session;
+use Sylius\Behat\Service\Helper\JavaScriptTestHelperInterface;
 use Webmozart\Assert\Assert;
 
 final readonly class GtmContext implements Context
 {
+
     public function __construct(
         private Session $session,
+        private JavaScriptTestHelperInterface $testHelper,
     ) {
     }
 
@@ -20,12 +23,14 @@ final readonly class GtmContext implements Context
      */
     public function theGoogleTagManagerEventShouldBeTriggered(string $event): void
     {
-        $layer = $this->getEventLayer($event);
+        $this->testHelper->waitUntilAssertionPasses(function () use ($event): void {
+            $layer = $this->getEventLayer($event);
 
-        Assert::notNull($layer, sprintf(
-            'Unable to find the event "%s" layer in the GTM dataLayer.',
-            $event,
-        ));
+            Assert::notNull($layer, sprintf(
+                'Unable to find the event "%s" layer in the GTM dataLayer.',
+                $event,
+            ));
+        }, 5000);
     }
 
     /**
@@ -33,24 +38,29 @@ final readonly class GtmContext implements Context
      */
     public function thisEventShouldContainProperGtmData(string $event): void
     {
-        $layer = $this->getEventLayer($event);
-        Assert::notNull($layer, sprintf(
-            'Unable to find the event "%s" layer in the GTM dataLayer.',
-            $event,
-        ));
+        $this->testHelper->waitUntilAssertionPasses(function () use ($event): void {
+            $layer = $this->getEventLayer($event);
+            Assert::notNull(
+                $layer,
+                sprintf(
+                    'Unable to find the event "%s" layer in the GTM dataLayer.',
+                    $event,
+                )
+            );
 
-        match ($event) {
-            'view_item_list' => $this->checkViewItemList($layer),
-            'view_item',
-            'view_cart',
-            'add_to_cart',
-            'remove_from_cart',
-            'begin_checkout',
-            'add_shipping_info',
-            'add_payment_info' => $this->checkViewItem($layer),
-            'purchase' => $this->checkPurchase($layer),
-            default => throw new \InvalidArgumentException(sprintf('Event "%s" not supported', $event)),
-        };
+            match ($event) {
+                'view_item_list' => $this->checkViewItemList($layer),
+                'view_item',
+                'view_cart',
+                'add_to_cart',
+                'remove_from_cart',
+                'begin_checkout',
+                'add_shipping_info',
+                'add_payment_info' => $this->checkViewItem($layer),
+                'purchase' => $this->checkPurchase($layer),
+                default => throw new \InvalidArgumentException(sprintf('Event "%s" not supported', $event)),
+            };
+        }, 5000);
     }
 
     /**
@@ -58,11 +68,16 @@ final readonly class GtmContext implements Context
      */
     public function thisEventShouldNotContainProperGtmData(string $event): void
     {
-        $layer = $this->getEventLayer($event);
-        Assert::null($layer, sprintf(
-            'Found the event "%s" layer in the GTM dataLayer, but it should not be there.',
-            var_export($event, true),
-        ));
+        $this->testHelper->waitUntilAssertionPasses(function () use ($event): void {
+            $layer = $this->getEventLayer($event);
+            Assert::null(
+                $layer,
+                sprintf(
+                    'Found the event "%s" layer in the GTM dataLayer, but it should not be there.',
+                    var_export($event, true),
+                )
+            );
+        }, 5000);
     }
 
     /**

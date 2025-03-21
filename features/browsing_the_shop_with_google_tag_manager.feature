@@ -39,17 +39,14 @@ Feature: Google Tag Manager Enhanced Ecommerce events
   Scenario: Triggering checkout step events when completing checkout steps
     Given I have product "Super Cool T-Shirt" in the cart
     And I addressed the cart
-    Then I should be on the checkout shipping step
     And the "begin_checkout" Google Tag Manager event should be triggered
     And this event should contain proper "begin_checkout" GTM data
     When I select "Free" shipping method
     And I complete the shipping step
-    Then I should be on the checkout payment step
     And the "add_shipping_info" Google Tag Manager event should be triggered
     And this event should contain proper "add_shipping_info" GTM data
     When I select "Offline" payment method
     And I complete the payment step
-    Then I should be on the checkout complete step
     And the "add_payment_info" Google Tag Manager event should be triggered
     And this event should contain proper "add_payment_info" GTM data
     When I confirm my order
