@@ -6,4 +6,4 @@ services:
       - !php/const Sylius\Component\Core\OrderCheckoutStates::STATE_PAYMENT_SELECTED
     tags:
       - name: kernel.event_listener
-        event: sylius.order.post_select_payment
+        event: sylius.order.post_payment

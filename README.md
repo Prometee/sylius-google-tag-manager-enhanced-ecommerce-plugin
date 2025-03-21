@@ -63,5 +63,5 @@ Checkout steps:
 
 * `begin_checkout` trigger on the event `sylius.order.post_address`
 * `add_shipping_info` trigger on the event `sylius.order.post_select_shipping`
-* `add_payment_info` trigger on the event `sylius.order.post_select_payment`
+* `add_payment_info` trigger on the event `sylius.order.post_payment`
 * `purchase` trigger on the event `sylius.order.post_complete`
