@@ -6,4 +6,4 @@ services:
       - !php/const Sylius\Component\Core\OrderCheckoutStates::STATE_COMPLETED
     tags:
       - name: kernel.event_listener
-        event: sylius.order.post_completed
+        event: sylius.order.post_complete
