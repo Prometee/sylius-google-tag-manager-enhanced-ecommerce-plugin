@@ -30,7 +30,7 @@ final readonly class GtmContext implements Context
                 'Unable to find the event "%s" layer in the GTM dataLayer.',
                 $event,
             ));
-        }, 5000);
+        });
     }
 
     /**
@@ -60,7 +60,7 @@ final readonly class GtmContext implements Context
                 'purchase' => $this->checkPurchase($layer),
                 default => throw new \InvalidArgumentException(sprintf('Event "%s" not supported', $event)),
             };
-        }, 5000);
+        });
     }
 
     /**
@@ -77,7 +77,7 @@ final readonly class GtmContext implements Context
                     var_export($event, true),
                 )
             );
-        }, 5000);
+        });
     }
 
     /**
